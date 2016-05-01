@@ -1,0 +1,67 @@
+<?php
+session_start();
+if(isset($_SESSION['taskid'])){
+	header("Location:index.php");
+}
+?>
+<!DOCTYPE html>
+<html ng-app="formApp">
+  <head>
+    <title>iDvGroup :: iDvWEB</title>
+    <script src="javascripts/jquery-2.1.4.min.js"></script>
+    <script src="javascripts/bootstrap.js"></script>
+	<script src="javascripts/angular.js"></script>
+	<script src="javascripts/toastr.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
+	<link rel="stylesheet" href="stylesheets/bootstrap.css" media="all"/>
+	<link rel="stylesheet" href="stylesheets/style.css" media="all"/>
+   	<link rel="stylesheet" href="stylesheets/custom.css" media="all"/>
+   	<link rel="stylesheet" href="stylesheets/toastr.css" media="all"/>
+  </head>
+  <body style="background-color:#2F4050"  ng-controller="formController as form">
+    <div class="box login">
+      <a href="http://idv-group.com"><img alt="image" src="images/logo.png" style="width:250px;height:100px;vertical-align:middle;text-align: center;display: block;margin-right:auto;margin-left:auto" /></a>
+    <form ng-submit="processForm()">
+		<fieldset class="boxBody">
+		<input type="email" class="form-control" placeholder="Email" ng-model="form.datos.email" />
+		</br>
+		<input type="password" class="form-control" placeholder="Password" ng-model="form.datos.password"/>
+      </fieldset>
+	  <footer>
+	  <label><input type="checkbox" tabindex="3">Mantenerme conectado</label>
+	  <input type="submit" value="Login" class="btnLogin" />
+	</footer>
+	</form>
+    </div>
+  </body>
+   	 <script>
+	toastr.options.preventDuplicates = true;
+    // define angular module/app
+    var formApp = angular.module('formApp', []);
+	formApp.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+	]);
+    formApp.controller("formController",function($scope,$http){
+    	var form=this;
+    	form.datos={};
+    	$scope.processForm = function(){
+    		form.datos["method"] = "login";
+    		$http.post("controllers/AuxLogin.php",form.datos).then(function(data){
+    			if(data.data == '0') {
+    				toastr.error('Acceso incorrecto');	
+    			}else{
+    				toastr.success('Bienvenido');
+    				window.location="index.php";
+    			}
+    			
+    		});
+    	}
+    });
+
+  </script>
+</html>
