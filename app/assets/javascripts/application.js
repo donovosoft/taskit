@@ -1,3 +1,9 @@
+//= require jquery
+//= require jquery_ujs
+//= require turbolinks
+//= require bootstrap
+//= require bootstrap-sprockets
+//= require_tree .
 
 toastr.options.preventDuplicates = true;
 toastr.options.positionClass='toast-top-center';
