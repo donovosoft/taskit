@@ -1,13 +1,13 @@
 
 
 defaults: &default
-  adapter: mysql
+  adapter: postgresql
   encoding: utf8
 
 
 development:
   <<: *default
-  database: taskit_dev
+  database: taskit
   pool: 10
   username: taskit
   password: taskit123

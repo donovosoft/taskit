@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.6'
-gem 'mysql'
+gem 'pg', '0.18.4'
 gem 'bcrypt'
 gem 'angularjs-rails'
 gem 'angular-ui-bootstrap-rails'
